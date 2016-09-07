@@ -24,6 +24,7 @@ public class App {
 				// 多线程方式启动bot
 				BotThread thread = new BotThread(bot.getId().toString(), bot.getToken(), bm);
 				new Thread(thread).start();
+				Thread.sleep(100);
 			}
 		} catch (Exception e) {
 			System.out.println("Error:" + e.getMessage());
