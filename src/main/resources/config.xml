@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<endpoint>http://192.168.0.28:9090</endpoint>
-	<getBotListUrl>http://192.168.0.28:9090/v1/dangchat-bots/?apiPassword=justep</getBotListUrl>
+	<getBotListUrl>http://192.168.0.28:9090/v1/dangchat-bots/?apiPassword=justep-dangchat</getBotListUrl>
 </configuration>

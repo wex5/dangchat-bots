@@ -7,7 +7,7 @@
 	<includeBaseDirectory>true</includeBaseDirectory>
 	<fileSets>	
 		<fileSet>
-			<directory>src/main/script</directory>
+			<directory>src/main/bin</directory>
 			<outputDirectory>/bin</outputDirectory>
 		</fileSet>
 		<fileSet>
