@@ -31,6 +31,8 @@ public abstract class CommandHandler {
 			return new CreateBotHandler(command);
 		} else if (command.toLowerCase().startsWith("broad")) {
 			return new BroadcastHandler(command);
+		} else if (command.toLowerCase().startsWith("creategroup")) {
+			return new CreateGroupHandler(command);
 		} else {
 			throw new CommandParameterException("命令格式不正确：" + command);
 		}
