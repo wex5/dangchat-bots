@@ -83,4 +83,38 @@ public class HttpClient {
 		return outputStream.toByteArray();
 	}
 
+	
+	/**
+	 * 发送post请求，保存新创建的groupID
+	 * 
+	 * @param url
+	 *            请求Url
+	 * @return boolean
+	 * @throws Exception
+	 */
+	public static JSONArray addBotGroup(String url, String groupID) throws Exception {
+		try {
+			URL realUrl = new URL(url);
+			// 打开和URL之间的连接
+			HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setConnectTimeout(5000);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("groupID", groupID);
+			int code = conn.getResponseCode();
+
+			// 调用服务
+			if (code == 201) {
+				InputStream is = conn.getInputStream();
+				String jsonString = getResponseString(is);
+				JSONArray array = new JSONArray(jsonString);
+				return array;
+			} else {
+				throw new Exception("打开url出错，response code=" + code);
+				
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 }

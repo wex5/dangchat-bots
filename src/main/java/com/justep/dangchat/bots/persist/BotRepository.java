@@ -20,5 +20,13 @@ public interface BotRepository {
 	 * @throws RepositoryException
 	 */
 	List<Bot> findAll() throws RepositoryException;
-
+	
+	/**
+	 * 通过机器人创建群组后保存groupID
+	 * 
+	 * @return boolean
+	 * @throws RepositoryException
+	 */
+	boolean addGroup(String value) throws RepositoryException;
+	
 }

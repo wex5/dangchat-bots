@@ -44,4 +44,24 @@ final class RestfulBotRepository implements BotRepository {
 		}
 	}
 
+	@Override
+	public boolean addGroup(String groupID) throws RepositoryException {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		String restUrl = ConfigFileReader.getValue("/config.xml", "botGroup");
+		if (restUrl != null || "".equals(restUrl)) {
+			try {
+				JSONArray array = HttpClient.addBotGroup(restUrl, groupID);
+				if(array.length()>0) {
+					flag = true;
+				}
+				return flag;
+			} catch (Exception e) {
+				throw new RepositoryException("保存botGroupID失败，" + e.getMessage());
+			}
+		} else {
+			throw new RepositoryException("配置文件不存在或没有设置 botGroup节点值");
+		}
+	}
+
 }
