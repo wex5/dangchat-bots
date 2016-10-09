@@ -1,10 +1,15 @@
 package com.justep.dangchat.bots.core
 
 import im.actor.bots.BotMessages
-import im.actor.bots.framework.*
+import im.actor.bots.framework.HookData
+import im.actor.bots.framework.MagicOverlord
+import im.actor.bots.framework.MagicOverlordScope
+import im.actor.bots.framework.OutPeer
+import im.actor.bots.framework.PeerType
+import im.actor.bots.framework.outPeerFromJson
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
+import java.util.ArrayList
 
 /**
  * 通知类机器人
@@ -113,13 +118,13 @@ class NotificationOverlord(scope: MagicOverlordScope) : MagicOverlord(scope) {
             e.printStackTrace()
         }
     }
+	
+	
 
     // Processor
 
     override fun preStart() {
         super.preStart()
-
-        //loadSubscribers()
     }
 
     override fun onReceive(update: Any?) {
@@ -132,7 +137,7 @@ class NotificationOverlord(scope: MagicOverlordScope) : MagicOverlord(scope) {
         } else if (update is UnsubscribeAdmin) {
             onUnsubscribeAdmin(update.peer)
         } else if (update is DoBroadcast) {
-            onText(update.message)
+            onNotification(update.message, update.users)
         } else if (update is DoNotification) {
             onNotification(update.message, update.users)
         } else {
@@ -150,7 +155,7 @@ class NotificationOverlord(scope: MagicOverlordScope) : MagicOverlord(scope) {
         }
     }
 
-    data class DoBroadcast(val message: String)
+    data class DoBroadcast(val message: String, val users: ArrayList<BotMessages.User>)
 
     data class DoNotification(val message: String, val users: ArrayList<BotMessages.User>)
 
