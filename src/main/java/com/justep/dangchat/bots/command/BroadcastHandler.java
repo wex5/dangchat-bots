@@ -1,10 +1,18 @@
 package com.justep.dangchat.bots.command;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.justep.dangchat.bots.core.DangchatBot;
 import com.justep.dangchat.bots.core.NotificationOverlord.DoBroadcast;
 import com.justep.dangchat.bots.util.CommandParser;
+import com.justep.dangchat.bots.util.ConfigFileReader;
+import com.justep.dangchat.bots.util.HttpClient;
+
+import im.actor.bots.BotMessages;
 
 /**
  * 广播消息处理器类
@@ -42,9 +50,26 @@ public class BroadcastHandler extends CommandHandler {
 		if (paramList.size() != 1) {
 			throw new CommandParameterException("命令格式不正确");
 		}
-		
+		// 得到所有接收人
+		ArrayList<BotMessages.User> userList = new ArrayList<BotMessages.User>();
+		String restUrl = ConfigFileReader.getValue("/config.xml", "getUserListUrl");
+		if (restUrl != null || "".equals(restUrl)) {
+			try {
+				JSONArray array = HttpClient.getJsonArray(restUrl);
+				System.out.println("array.length:" + array.length());
+				for (int i = 0; i <= array.length() - 1; i++) {
+					JSONObject item = array.getJSONObject(i);
+					BotMessages.User user = bot.findUser(item.getString("nickname"));
+					if (user != null) {
+						userList.add(user);
+					}
+				}
+			} catch (Exception e) {
+				throw new CommandParameterException("获取用户列表失败，" + e.getMessage());
+			}
+		} 
 		// 发送广播
-		bot.sendToOverlord(new DoBroadcast(paramList.get(0).getValue()));
+		bot.sendToOverlord(new DoBroadcast(paramList.get(0).getValue(), userList));
 	}
 
 }
