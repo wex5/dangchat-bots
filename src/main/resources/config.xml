@@ -2,5 +2,6 @@
 <configuration>
 	<endpoint>http://192.168.0.28:9090</endpoint>
 	<getBotListUrl>http://192.168.0.28:9090/v1/dangchat-bots/?apiPassword=justep-dangchat</getBotListUrl>
+	<getUserListUrl>http://192.168.0.28:9090/v1/dangchat-users/?apiPassword=justep-dangchat</getUserListUrl>
 	<botGroup>http://192.168.0.28:9090/botgroup</botGroup>
 </configuration>
