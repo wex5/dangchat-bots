@@ -50,13 +50,13 @@ public final class CreateGroupHandler extends CommandHandler {
 		
 		ResponseCreateGroup group = bot.createGroup(paramList.get(0).getValue());
 		BotMessages.GroupOutPeer groupOutPeer = group.peer();
-		int groupID = groupOutPeer.id();
+		/*int groupID = groupOutPeer.id();
 		try {
 			BotRepositoryFactory.newInstance().addGroup(groupID+"");
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		// 得到所有参与人
 //		ArrayList<BotMessages.User> userList = new ArrayList<BotMessages.User>();
 		String[] userIds = paramList.get(1).getValue().split(",");
